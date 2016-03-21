@@ -27,6 +27,18 @@ namespace rongYunWebApiSample.Controllers
             return Request.CreateResponse(HttpStatusCode.NotFound);
         }
 
+        [HttpGet]
+        public HttpResponseMessage GetInformationById(string id)
+        {
+            Models.InformationDetails.InformationModel model=
+                repository.GetModelById(id);
+            if(model!=null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, model);
+            }
+            return Request.CreateResponse(HttpStatusCode.NotFound);
+        }
+
         public HttpResponseMessage CreateInformation(Models.InformationDetails.InformationModel model)
         {
             if (ModelState.IsValid&&model!=null)

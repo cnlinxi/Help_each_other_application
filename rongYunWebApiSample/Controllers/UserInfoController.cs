@@ -31,6 +31,8 @@ namespace rongYunWebApiSample.Controllers
             if(ModelState.IsValid&&model!=null)
             {
                 string token = repository.CreateUser(model);
+                if (token == "Repeat UserName")
+                    return Request.CreateResponse(HttpStatusCode.Conflict);
                 if (token!=string.Empty)
                 {
                     return Request.CreateResponse(HttpStatusCode.Created, token);

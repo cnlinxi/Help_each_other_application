@@ -52,6 +52,7 @@ namespace rongYunWebApiSample.Models
                     strSql.Append(" AND Address LIKE '%");
                     strSql.Append(address + "%'");
                 }
+                strSql.Append(" AND IsAcceptOrder=0");
                 strSql.Append(" ORDER BY dbo.Information.AddTime DESC");
 
                 IList<InformationListModel> lstInformation = new List<InformationListModel>();
