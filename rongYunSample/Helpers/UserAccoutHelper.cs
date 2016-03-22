@@ -12,7 +12,7 @@ using Windows.Web.Http;
 
 namespace rongYunSample.Helpers
 {
-    public class UserAccoutHelper
+    public class UserAccountHelper
     {
         static ApplicationDataContainer roamdingSettings = ApplicationData.Current.RoamingSettings;
         private string resourceName = "rongYunSample";
@@ -52,10 +52,12 @@ namespace rongYunSample.Helpers
         /// <param name="userName">用户名</param>
         /// <param name="password">密码</param>
         /// <returns>RegisterStatus类型</returns>
-        public static async Task<RegisterStatus> Register(string userName,string password)
+        public static async Task<RegisterStatus> Register(string userName,string email,string phoneNumber,string password)
         {
             UserModel user = new UserModel();
             user.userName = userName;
+            user.email = email;
+            user.phoneNumber = phoneNumber;
             user.password = EncriptHelper.ToMd5(password);
             try
             {

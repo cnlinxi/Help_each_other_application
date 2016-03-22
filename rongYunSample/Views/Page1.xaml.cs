@@ -1,5 +1,9 @@
 ﻿using rongYunSample.Data;
+using rongYunSample.Helpers;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Windows.Devices.Geolocation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -12,21 +16,44 @@ namespace rongYunSample.Views
     public sealed partial class Page1 : Page
     {
         private LstInformationList lstInformationList;
+        private LocationHelper location;
 
         public Page1()
         {
             this.InitializeComponent();
 
             lstInformationList = new LstInformationList();
+            location = new LocationHelper();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             this.lvInformationList.ItemsSource = lstInformationList;
             lstInformationList.DataLoading += LstInformationList_DataLoading;
             lstInformationList.DataLoaded += LstInformationList_DataLoaded;
 
+            //获取地理位置
+            await InitLocation();
+
             base.OnNavigatedTo(e);
+        }
+
+        private async Task InitLocation()
+        {
+            tbLocationStatus.Text = "定位中...";
+            KeyValuePair<GeolocationAccessStatus, string> addressPair = await location.GetLoacationAsync();
+            if (addressPair.Key == GeolocationAccessStatus.Allowed)
+            {
+                tbLocationStatus.Text = addressPair.Value;
+            }
+            else if (addressPair.Key == GeolocationAccessStatus.Denied)
+            {
+                tbLocationStatus.Text = "最远的距离就是:我不知道你身在何处。修改定位选项：";
+            }
+            else if (addressPair.Key == GeolocationAccessStatus.Unspecified)
+            {
+                tbLocationStatus.Text = "我对你的定位出了一丢丢的问题~";
+            }
         }
 
         private void LstInformationList_DataLoaded()

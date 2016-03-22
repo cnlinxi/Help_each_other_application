@@ -64,6 +64,7 @@
           EntranceNavigationTransitionInfo.IsTargetElement="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <CommandBar x:Name="topBar" VerticalAlignment="Top" HorizontalAlignment="Stretch"
@@ -88,8 +89,18 @@
                 </ctl:PageHeader>
             </CommandBar.Content>
         </CommandBar>
+        <StackPanel x:Name="locationLayout"
+                    Orientation="Horizontal"
+                    Grid.Row="1"
+                    Margin="10">
+            <TextBlock Text="你现在的位置:"/>
+            <TextBlock x:Name="tbLocationStatus"
+                       FontSize="10"/>
+            <HyperlinkButton NavigateUri="ms-settings:privacy-location"
+                             Content="定位选项"/>
+        </StackPanel>
         <pr:PullToRefreshBox RefreshInvoked="PullToRefreshBox_RefreshInvoked"
-                             Grid.Row="1">
+                             Grid.Row="2">
             <ListView x:Name="lvInformationList"
                       Padding="10 10 10 10"
                       CanReorderItems="True"
