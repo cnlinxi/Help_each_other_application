@@ -106,6 +106,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Data\Delegates.cs" />
     <Compile Include="Data\LstInformationList.cs" />
+    <Compile Include="Data\MyTaskList.cs" />
     <Compile Include="Helpers\BlobHelper.cs" />
     <Compile Include="Controls\NavMenuListView.cs" />
     <Compile Include="Controls\PageHeader.xaml.cs">
@@ -128,7 +129,6 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="NavMenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserAccoutHelper.cs" />
     <Compile Include="Views\ContactDialog.xaml.cs">
       <DependentUpon>ContactDialog.xaml</DependentUpon>
     </Compile>
@@ -146,6 +146,9 @@
     </Compile>
     <Compile Include="Views\ShowInformationDetails.xaml.cs">
       <DependentUpon>ShowInformationDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShowMyTask.xaml.cs">
+      <DependentUpon>ShowMyTask.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShowPicture.xaml.cs">
       <DependentUpon>ShowPicture.xaml</DependentUpon>
@@ -214,6 +217,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ShowInformationDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShowMyTask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

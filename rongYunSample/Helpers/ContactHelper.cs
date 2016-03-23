@@ -19,17 +19,15 @@ namespace rongYunSample.Helpers
         /// <summary>
         /// 发送邮件
         /// </summary>
-        /// <param name="toEmailAddress">目标邮箱</param>
-        /// <param name="fromName">发送人的用户名</param>
-        /// <param name="fromEmailAddress">发送人的邮箱</param>
-        /// <param name="taskTitle">任务名称</param>
+        /// <param name="toEmailAddress">目标邮箱地址</param>
+        /// <param name="body">邮件主体</param>
         /// <returns></returns>
-        public static async Task ComposeEmail(string toEmailAddress,string fromName,string fromEmailAddress,string taskTitle)
+        public static async Task ComposeEmail(string toEmailAddress,string body)
         {
             EmailMessage emailMessage = new EmailMessage();
             emailMessage.To.Add(new EmailRecipient(toEmailAddress));
             emailMessage.Subject = Constants.ContactContent.Subject;
-            emailMessage.Body = Constants.ContactContent.EmailBody(fromName,fromEmailAddress,taskTitle);
+            emailMessage.Body = body;
             await EmailManager.ShowComposeNewEmailAsync(emailMessage);
         }
 
@@ -37,14 +35,12 @@ namespace rongYunSample.Helpers
         /// 发送短信
         /// </summary>
         /// <param name="toPhoneNumber">目标电话号码</param>
-        /// <param name="fromName">发送人的用户名</param>
-        /// <param name="fromPhoneNumber">发送人的电话号码</param>
-        /// <param name="taskTitle">任务地址</param>
+        /// <param name="body">短信主体</param>
         /// <returns></returns>
-        public static async Task ComposeSms(string toPhoneNumber, string fromName, string fromPhoneNumber, string taskTitle)
+        public static async Task ComposeSms(string toPhoneNumber, string body)
         {
             var chatMessage = new Windows.ApplicationModel.Chat.ChatMessage();
-            chatMessage.Body = Constants.ContactContent.SmsBody(fromName,fromPhoneNumber,taskTitle);
+            chatMessage.Body = body;
             chatMessage.Recipients.Add(toPhoneNumber);
             await ChatMessageManager.ShowComposeSmsMessageAsync(chatMessage);
         }

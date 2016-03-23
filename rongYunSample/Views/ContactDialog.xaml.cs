@@ -21,12 +21,14 @@ namespace rongYunSample.Views
 {
     public sealed partial class ContactDialog : ContentDialog
     {
-        ContactModel contactModel;
-        public ContactDialog(ContactModel model)
+        private ContactModel contactModel;
+        private int flagContactMode=0;
+        public ContactDialog(ContactModel model,int flagMode=0)
         {
             this.InitializeComponent();
 
             this.contactModel = model;
+            flagContactMode = flagMode;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -41,8 +43,16 @@ namespace rongYunSample.Views
                 contactModel.toUserName!=string.Empty&&
                 contactModel.toEmailAddress!=string.Empty)
             {
-                await ContactHelper.ComposeEmail(contactModel.toEmailAddress, 
-                    contactModel.fromUserName,contactModel.fromEmailAddress, contactModel.taskTitle);
+                if(flagContactMode==Constants.FlagContactMode.AskTask)
+                {
+                    await ContactHelper.ComposeEmail(contactModel.toEmailAddress, Constants.ContactContent.EmailBody_AskTask(
+                        contactModel.fromUserName, contactModel.fromEmailAddress, contactModel.taskTitle));
+                }
+                else if(flagContactMode==Constants.FlagContactMode.PublishTask)
+                {
+                    await ContactHelper.ComposeEmail(contactModel.toEmailAddress, Constants.ContactContent.EmailBody_PublishTask(
+                        contactModel.fromUserName, contactModel.taskTitle));
+                }
             }
         }
 
@@ -66,8 +76,16 @@ namespace rongYunSample.Views
                 contactModel.toUserName!=string.Empty&&
                 contactModel.taskTitle != string.Empty)
             {
-                await ContactHelper.ComposeSms(contactModel.toPhoneNumber,
-                    contactModel.fromUserName, contactModel.fromPhoneNumber, contactModel.taskTitle);
+                if(flagContactMode==Constants.FlagContactMode.AskTask)
+                {
+                    await ContactHelper.ComposeSms(contactModel.toPhoneNumber, Constants.ContactContent.SmsBody_AskTask(
+                        contactModel.fromUserName, contactModel.fromPhoneNumber, contactModel.taskTitle));
+                }
+                else if(flagContactMode==Constants.FlagContactMode.PublishTask)
+                {
+                    await ContactHelper.ComposeSms(contactModel.toPhoneNumber, Constants.ContactContent.SmsBody_PublishTask(
+                        contactModel.fromUserName, contactModel.taskTitle));
+                }
             }
         }
 

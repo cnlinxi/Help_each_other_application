@@ -79,7 +79,7 @@ namespace rongYunSample.Views
 
         private void lvInformationList_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            this.Frame.Navigate(typeof(ShowInformationDetails), new object[] { e.ClickedItem });
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)

@@ -34,6 +34,12 @@ namespace rongYunSample.Views
                 this.rootPivot.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 注意，注册和每次更新用户数据应该存储用户Token,PhoneNumber,EmailAddress
         private async void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             if(txtAccount_reg.Text.Length<=0||txtEmail_reg.Text.Length<=0||

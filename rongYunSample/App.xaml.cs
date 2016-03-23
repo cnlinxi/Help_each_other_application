@@ -1,4 +1,5 @@
-﻿using System;
+﻿using rongYunSample.Helpers;
+using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -18,6 +19,7 @@ namespace rongYunSample
     {
         //发布任务中储存图片的StorageFile
         public static List<StorageFile> lstPicture;
+        public static string userName = string.Empty;
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -73,6 +75,9 @@ namespace rongYunSample
                 // suppressing the initial entrance animation.
                 shell.AppFrame.Navigate(typeof(Views.Page1), e.Arguments, new Windows.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo());
             }
+
+            UserAccountHelper userAccount = new UserAccountHelper();
+            userName = userAccount.GetUserNameFromLocker();
 
             // Ensure the current window is active
             Window.Current.Activate();

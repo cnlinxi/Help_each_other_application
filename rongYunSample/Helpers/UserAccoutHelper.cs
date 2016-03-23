@@ -35,6 +35,8 @@ namespace rongYunSample.Helpers
                     if(EncriptHelper.ToMd5(password)==jsonObject["password"].ToString())
                     {
                         roamdingSettings.Values[Constants.SettingName.Token] = jsonObject["token"].ToString();
+                        roamdingSettings.Values[Constants.SettingName.EmailAddress] = jsonObject["Email"].ToString();
+                        roamdingSettings.Values[Constants.SettingName.PhoneNumber] = jsonObject["PhoneNumber"].ToString();
                         return true;
                     }
                 }
@@ -69,6 +71,8 @@ namespace rongYunSample.Helpers
                     if(response.StatusCode==HttpStatusCode.Created)
                     {
                         roamdingSettings.Values[Constants.SettingName.Token] = response.Content;
+                        roamdingSettings.Values[Constants.SettingName.EmailAddress] = email;
+                        roamdingSettings.Values[Constants.SettingName.PhoneNumber] = phoneNumber;
                         return RegisterStatus.Success;
                     }
                     else if(response.StatusCode==HttpStatusCode.Conflict)

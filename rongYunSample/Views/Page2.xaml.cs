@@ -28,9 +28,6 @@ namespace rongYunSample.Views
         {
             this.InitializeComponent();
 
-            UserAccountHelper userAccount = new UserAccountHelper();
-            userName = userAccount.GetUserNameFromLocker();
-
             //关闭缓存页面
             this.NavigationCacheMode = NavigationCacheMode.Disabled;
             encriptUserName = EncriptHelper.ToMd5(userName).ToLower();
@@ -39,6 +36,14 @@ namespace rongYunSample.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            UserAccountHelper userAccount = new UserAccountHelper();
+            userName = userAccount.GetUserNameFromLocker();
+            if(userName==string.Empty)
+            {
+                await new MessageBox("你尚未登陆", MessageBox.NotifyType.CommonMessage).ShowAsync();
+                this.Frame.Navigate(typeof(UserAccount));
+                return;
+            }
             //当从ShowPicture返回时，如果执行了取消上传的操作，e.Parameter是有值的
             //那么就将这个StorageFile从App.list中移除
             if (e.Parameter is Dictionary<string, Image>)
@@ -291,11 +296,14 @@ namespace rongYunSample.Views
             }
             InformationModel model = new InformationModel();
             model.title = title;
+            if (txtWage.Text.Length <= 0)
+                model.wage = Constants.NegotiablePrice;
             model.content = FileHelper.GenerateXMLDocument(content, lstFileUrl);
             model.addTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             model.userName = userName;
             model.viewCount = "0";
             model.address = address;
+            model.isAcceptOrder = Constants.OrderStatus.NotAccept;
             string jsonContent = JsonHelper.ObjectToJson(model);
             HttpService http = new HttpService();
             await http.SendPostRequest(InterfaceUrl.CreateInformationUrl, jsonContent);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using rongYunSample.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -6,12 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
 using Windows.Foundation;
-using rongYunSample.Models;
 using rongYunSample.Helpers;
 
 namespace rongYunSample.Data
 {
-    public class LstInformationList : ObservableCollection<InformationListModel>, ISupportIncrementalLoading
+    public class MyTaskList : ObservableCollection<InformationListModel>, ISupportIncrementalLoading
     {
         private bool isBusy = false;
         private bool isHaveMoreItems = false;
@@ -20,19 +20,18 @@ namespace rongYunSample.Data
         public event DataLoadedEventHandler DataLoaded;
         public event DataLoadingEventHandler DataLoading;
         private Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-        private string address = string.Empty;
+        private string userName = string.Empty;
 
-        public LstInformationList()
+        public MyTaskList()
         {
             isHaveMoreItems = true;
-            if(roamingSettings.Values.ContainsKey(Constants.SettingName.LoadPageSize))
+            if (roamingSettings.Values.ContainsKey(Constants.SettingName.LoadPageSize))
             {
                 pageSize = Convert.ToInt32(roamingSettings.Values[Constants.SettingName.LoadPageSize]);
             }
-            if(roamingSettings.Values.ContainsKey(Constants.SettingName.UserAddress))
-            {
-                address = roamingSettings.Values[Constants.SettingName.UserAddress].ToString();
-            }
+
+            UserAccountHelper userAccount = new UserAccountHelper();
+            userName = userAccount.GetUserNameFromLocker();
         }
         public bool HasMoreItems
         {
@@ -78,7 +77,7 @@ namespace rongYunSample.Data
                 {
                     DataLoading();
                 }
-                lstInformationList = await InformationHelper.GetInformationListByAddressAsync(currentPage, pageSize,address);
+                lstInformationList = await InformationHelper.GetInformationListByAddressAsync(currentPage, pageSize, userName);
             }
             catch
             {
@@ -86,7 +85,7 @@ namespace rongYunSample.Data
             }
             finally
             {
-                if(lstInformationList!=null&&lstInformationList.Any())
+                if (lstInformationList != null && lstInformationList.Any())
                 {
                     actualCount = (uint)lstInformationList.Count;
                     TotalCount += actualCount;
@@ -99,7 +98,7 @@ namespace rongYunSample.Data
                     isHaveMoreItems = false;
                 }
 
-                if(DataLoaded!=null)
+                if (DataLoaded != null)
                 {
                     DataLoaded();
                 }

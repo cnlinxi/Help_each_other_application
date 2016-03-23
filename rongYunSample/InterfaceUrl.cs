@@ -15,6 +15,10 @@ namespace rongYunSample
         {
             return apiHost + $"api/Information?userName={userName}";
         }
+        public static string UpdateInformation(string infoId)
+        {
+            return apiHost + $"api/Information?infoId={infoId}";
+        }
         public static string GetInformationById(string id)
         {
             return apiHost + $"api/Information/{id}";
@@ -29,6 +33,14 @@ namespace rongYunSample
             {
                 return apiHost + $"api/InformationList?pageIndex={pageIndex}&pageSize={pageSize}&address={address}";
             }
+        }
+        public static string GetInformationListByUserName(int pageIndex,int pageSize,string userName)
+        {
+            return apiHost + $"api/InformationList?pageIndex={pageIndex}&pageSize={pageSize}&userName={userName}";
+        }
+        public static string DeleteInformation(string infoId)
+        {
+            return apiHost + $"api/Information?infoId={infoId}";
         }
         public static string UserAccountUrl = apiHost + "api/UserInfo";
         public static string UserLogin(string userName)
