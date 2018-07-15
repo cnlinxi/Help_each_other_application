@@ -1,0 +1,58 @@
+﻿<Page
+    x:Class="rongYunSample.ShowPicture"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:rongYunSample"
+    xmlns:ctl="using:rongYunSample.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton Icon="Delete" Label="appbarbutton" Click="AppBarButton_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <CommandBar x:Name="topBar" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+                    Grid.ColumnSpan="2">
+            <!--<AppBarButton Icon="Add" Label="Add" Click="AppBarButton_Click"/>-->
+            <!--<AppBarButton Icon="Accept" Label="Accept" Click="AppBarButton_Click"/>
+            <AppBarSeparator/>
+            <AppBarButton Icon="Sort" Label="Sort" Click="AppBarButton_Click"/>-->
+            <!--<CommandBar.SecondaryCommands>
+                <AppBarButton Label="Settings" Click="AppBarButton_Click"/>
+                <AppBarButton Label="初始化设备" Click="AppBarButton_Click"/>
+                <AppBarButton Label="控制中心" Click="AppBarButton_Click"/>
+            </CommandBar.SecondaryCommands>-->
+            <CommandBar.Content>
+                <ctl:PageHeader>
+                    <ctl:PageHeader.HeaderContent>
+                        <TextBlock Text="查看图片" 
+                                   Margin="40 0 0 0"
+                                   Style="{ThemeResource PageTitleTextBlockStyle}" 
+                                   TextWrapping="NoWrap"/>
+                    </ctl:PageHeader.HeaderContent>
+                </ctl:PageHeader>
+            </CommandBar.Content>
+        </CommandBar>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <Image x:Name="picture"
+               Grid.Row="1"
+               Margin="10"/>
+    </Grid>
+</Page>
