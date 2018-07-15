@@ -1,4 +1,4 @@
-# Help others Application
+# Help each other Application
 
 A UWP Application which provide platform for labor lease in school or community.
 
