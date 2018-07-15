@@ -1,6 +1,0 @@
-namespace rongYunWebApiSample.Areas.HelpPage.ModelDescriptions
-{
-    public class SimpleTypeModelDescription : ModelDescription
-    {
-    }
-}
